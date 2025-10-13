@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Competency 3: Setting Up Computer Server</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      overflow-x: hidden;
+    }
+
+    header {
+      padding: 20px;
+      background-color: #f8f8f8;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid #ccc;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.6rem;
+    }
+
+    .subhead {
+      font-size: 0.95rem;
+      color: #333;
+      margin-top: 4px;
+    }
+
+    hr {
+      margin-top: 12px;
+      border: none;
+      border-top: 1px solid #bbb;
+    }
+
+    h2 {
+      text-align: center;
+      margin: 20px 0 10px;
+    }
+
+    .gallery {
+      display: flex;
+      width: 100%;
+      height: 80vh; /* <-- reduced height so headings remain visible */
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      touch-action: pan-y;
+    }
+
+    .gallery img {
+      width: 100vw;
+      height: 80vh;
+      object-fit: contain;
+      flex-shrink: 0;
+      background-color: #000; /* so black bars appear if image is smaller */
+    }
+
+    .nav {
+      position: fixed;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      z-index: 20;
+      pointer-events: none;
+    }
+
+    .btn {
+      background-color: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 20px;
+      cursor: pointer;
+      border-radius: 50%;
+      pointer-events: all;
+    }
+
+    .btn:hover {
+      background-color: rgba(0,0,0,0.7);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Competency 1: Installing Computer Systems</h1>
+    <div class="subhead">Instructor: JOHN DAVE A. BARILEA</div>
+    <hr>
+    <h2>1.4. Installing Windows Applications<br>WPS Office; GIMP; OpenShot; RapidTyping; Mozilla Firefox</h2>
+  </header>
+
+  <main>
+
+    <div class="nav">
+      <button class="btn" id="prev">&#10094;</button>
+      <button class="btn" id="next">&#10095;</button>
+    </div>
+
+    <div class="gallery" id="gallery">
+      <img src="images/a1.png" alt="Image 1">
+      <img src="images/a2.png" alt="Image 2">
+      <img src="images/a3.png" alt="Image 3">
+      <img src="images/a4.png" alt="Image 4">
+      <img src="images/a5.png" alt="Image 5">
+    </div>
+  </main>
+
+  <script>
+    const gallery = document.getElementById('gallery');
+    const images = gallery.querySelectorAll('img');
+    let index = 0;
+
+    document.getElementById('next').addEventListener('click', () => {
+      index = (index + 1) % images.length;
+      gallery.scrollTo({ left: index * window.innerWidth, behavior: 'smooth' });
+    });
+
+    document.getElementById('prev').addEventListener('click', () => {
+      index = (index - 1 + images.length) % images.length;
+      gallery.scrollTo({ left: index * window.innerWidth, behavior: 'smooth' });
+    });
+
+    // Swipe support for touchscreens
+    let startX = 0;
+    gallery.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+    });
+
+    gallery.addEventListener('touchend', (e) => {
+      let endX = e.changedTouches[0].clientX;
+      if (startX - endX > 50) index = (index + 1) % images.length;
+      else if (endX - startX > 50) index = (index - 1 + images.length) % images.length;
+      gallery.scrollTo({ left: index * window.innerWidth, behavior: 'smooth' });
+    });
+  </script>
+
+</body>
+</html>
